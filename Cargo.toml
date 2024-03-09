@@ -10,3 +10,5 @@ once_cell = "*"
 [features]
 default = ["squares"]
 squares = []
+tangle = []
+playground = []

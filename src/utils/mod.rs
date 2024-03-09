@@ -1,4 +1,4 @@
-use nannou::rand::random_range;
+use nannou::{geom::Point2, rand::random_range};
 
 pub struct RandomStepRange {
     end: i32,
@@ -23,20 +23,28 @@ impl Iterator for RandomStepRange {
 
     fn next(&mut self) -> Option<Self::Item> {
         let return_value = self.value;
-        self.value = self.value + self.step;
-        if self.value > self.end {
+        if self.value >= self.end {
             return None;
         }
 
         let next_step = random_range(1, self.max_step);
-        self.step = if return_value + self.step > self.end {
+        self.step = if return_value + next_step > self.end {
             self.end - return_value
         } else {
             next_step
         };
 
+        self.value = self.value + self.step;
+
         Some((return_value, self.step))
     }
+}
+
+pub fn lerp_points(a: &Point2, b: &Point2, t: f32) -> Point2 {
+    let x = t * a.x + (1.0 - t) * b.x;
+    let y = t * a.y + (1.0 - t) * b.y;
+
+    Point2::new(x, y)
 }
 
 #[cfg(test)]
