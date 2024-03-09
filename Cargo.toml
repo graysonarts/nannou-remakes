@@ -1,0 +1,12 @@
+[package]
+name = "remakes"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+nannou = "*"
+once_cell = "*"
+
+[features]
+default = ["squares"]
+squares = []
