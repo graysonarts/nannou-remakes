@@ -8,7 +8,12 @@ nannou = "*"
 once_cell = "*"
 
 [features]
-default = ["squares"]
+default = ["concord"]
 squares = []
 tangle = []
 playground = []
+concord = ["lazy_height"]
+
+# There are features needed to make things continualy work
+lazy_height = []
+once = []        # Only render once, and then pause

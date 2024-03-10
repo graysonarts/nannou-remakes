@@ -1,4 +1,9 @@
-use nannou::{geom::Point2, rand::random_range};
+pub mod axis;
+
+use nannou::{
+    geom::Point2,
+    rand::{random_f32, random_range},
+};
 
 pub struct RandomStepRange {
     end: i32,
@@ -40,9 +45,19 @@ impl Iterator for RandomStepRange {
     }
 }
 
+pub fn random_step(start: i32, end: i32, step: i32) -> i32 {
+    let rnd = random_f32();
+    let size = (end - start) as f32 * rnd;
+    (size / step as f32).round() as i32 * step + start
+}
+
+pub fn lerp(a: f32, b: f32, t: f32) -> f32 {
+    t * a + (1.0 - t) * b
+}
+
 pub fn lerp_points(a: &Point2, b: &Point2, t: f32) -> Point2 {
-    let x = t * a.x + (1.0 - t) * b.x;
-    let y = t * a.y + (1.0 - t) * b.y;
+    let x = lerp(a.x, b.x, t);
+    let y = lerp(a.y, b.y, t);
 
     Point2::new(x, y)
 }
